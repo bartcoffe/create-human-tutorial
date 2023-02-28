@@ -59,7 +59,7 @@ eve = Human('Eve', 90_000, 'green', 3, 99)
             </div>
             <p>
 Let's look onto the act of creation. First line is a class declaration. It starts a recipe for a Human. Last line brings the Human to life. Everything in between is the stuff that Human is set to be and do.
-Each Human has some characteristics like eyes color, a mysterious lucky number and even more mysterious iq number. Adam defined at the very bottom is an instance of Human class and he has blue eyes, low iq and can't do anything at the moment - but that's about to change
+Each Human has some characteristics like eyes color, a mysterious lucky number and even more mysterious iq number. Adam defined at the very bottom is an instance of a Human class and he has blue eyes, low iq and can't do anything at the moment - but that's about to change.
             </p>
             <div>
                 <div class="code-snippet">
@@ -86,7 +86,7 @@ Instance attributes are variables that contain data that is unique to each insta
 I said that values inside parentheses almost perfectly correspond to arguments in __init__ method. Why almost? Well, at the first place, there's a self argument. Self denotes to-be-born instance - like a piece of marble about to be sculpted. Each method inside a class receives an instance as a first argument. By convention, we call it self, it is not a requirement to call it that, just a good practice. We'll see more of self once dive deeper.                
             </p>
             <p>
-By writing self.name = name inside __init__ , we create name attribute in our instance (left side of the equation) and assign name value that we passed in parentheses to it (right side of the equation). Look at the example below to better visualize this. Those two snippets produce the same result, using __init__ just automates the process of creation (often called initialization or construction)
+By writing self.name = name inside __init__ , we create name attribute in our instance (left side of the assignment) and assign name value that we passed in parentheses to it (right side of the assignment). Look at the example below to better visualize this. Those two snippets produce the same result, using __init__ just automates the process of creation (often called initialization or construction)
             </p>
 
             <div class="flex">
@@ -148,11 +148,11 @@ print(Human.__dict__)
             </div>
             <p>
                 When we want to access class attribute we need to do so either by an instance or by class itself. 
-                In example above, when we try to print jean.find_true_love_probability we get a value back as we'd expect. What is interesting to note here though, its that this value is not actually available directly inside the instance. Why does it work then? Well, when we try to access any attribute of an object, python will look in multiple places. it will start in the instance it was called, when doesn't find what it looks for it will then move on to the class it's defined out of. Next, if it's still not there it will try to go up the chain of parent classes until lucky. It is good to be aware of that to prevent some unexpected results. 
+                In example above, when we try to print jean.find_true_love_probability we get a value back as we'd expect. What is interesting to note here though, its that this value is not actually available directly inside the instance. Why does it work then? Well, when we try to access any attribute of an object, python will look in multiple places. it will start in the instance it was called, when doesn't find what it looks for, it will then move on to the class it's defined out of. Next, if it's still not there it will try to go up the chain of parent classes until lucky. It is good to be aware of that to prevent some unexpected results. 
             </p>
             <p>
                 If your name is Amor, you get more chances to find love. It's because Amor's instance attribute of find_true_love_probability defined in __init__ will be encountered and returned without the need to look anywhere else. It's good to be able to, in some cases, have an instance attribute overwrite some 'default' class attribute while still primarily rely on this 'fallback' feature.
-                Another use case for a class variable can be counting all humans that ever tasted earth life. Individual humans have no reason to mess with that count, its only for internal purposes of Foundational Bureau of IHΣΟΥΣ (FBI)
+                Another use case for a class variable can be counting all humans that ever tasted earth life. Individual humans have no reason to mess with that count, its only for internal purposes of Foundational Bureau of IHΣΟΥΣ
             </p>
 
 
@@ -220,6 +220,7 @@ class ErroneousHuman():
                     </code>
                 </pre>
             </div>
+
             <div class="code-snippet">
                 <pre>
                     <code>
@@ -231,6 +232,7 @@ print(Human.zodiac_sign(adam)
             <p>
 Statements above are exactly the same - second line just shows more explicitly what happens internally. Again, this is why we need to always write self as a first argument in methods. Self gets passed automatically.
             </p>
+
 
         </section>
         <section id="class-methods">
@@ -301,7 +303,7 @@ Each human upon creation has class attribute of luck factor equal to 0. It is a 
         <section id="class-alternative constructors">
             <h2>Class methods as alternative constructors</h2>
             <p>
-Imagine you were tasked creating a bunch of humans to populate the Easter Island but the boss gave you the details describing each human as a string. You could of course type all the arguments in appropriate fields but you want to have a way to create humans by suppling the string directly. 
+Imagine you were tasked with creating a bunch of humans to populate the Easter Island but the boss gave you the details describing each human as a string. You could of course type all the arguments in appropriate fields but you want to have a way to create humans by suppling the string directly. 
             </p>
             <p>
 Example in section below.
@@ -310,7 +312,7 @@ Example in section below.
         <section id="static-methods">
             <h2>Static methods</h2>
             <p>
-Regular methods pass instance as a first argument, class methods pass a class, static methods pass nothing. They behave like regular functions. The reason for such a creature is convenience - static method doesn't need to live inside a class to work,  it is common-sensicaly connected to it and it just makes sense to have it around.               
+Regular methods pass instance as a first argument, class methods pass a class, static methods pass nothing. They behave like regular functions. The reason for such a creature is convenience - static method doesn't need to live inside a class to work,  it is just common-sensicaly connected to it and it just makes sense to have it around.               
             </p>
             <p>
 If you find yourself writing a method and it neither use self nor cls - it probably should be a static. 
@@ -375,7 +377,7 @@ class Human():
         self.strength_to_weight_ratio *= 1.01
 
 
-class Ordinary_human(Human):
+class OrdinaryHuman(Human):
     pass
 
 
@@ -402,18 +404,18 @@ class Hunter(Human):
                 </pre>
             </div>
             <p>
-There's a lot going on on above example. First, take a look at Ordinary_human. It is a class that inherits from a Human and has nothing more to offer. When we try create an instance of it, we notice that it demands the same init arguments as a Human. Similarly to the example on class attributes, here, on creation of Ordinary_human, python looked for init, it didn't find it so went up to the parent, found it there and run it. It is called method resolution order. To better visualize it, run built-in help function on any class
+There's a lot going on in an example above. First, take a look at OrdinaryHuman. It is a class that inherits from a Human and has nothing more to offer. When we try create an instance of it, we notice that it demands the same init arguments as a Human. Similarly to the example on class attributes, here, on creation of OrdinaryHuman, python looked for init, it didn't find it so went up to the parent, found it there and run it. It is called method resolution order. To better visualize it, run built-in help function on any class
             </p>
             <div class="code-snippet">
                 <pre>
                     <code>
 print(help(Hunter))
 # ->
-class Ordinary_human(Human)
-    |  Ordinary_human(name, eyes_color, lucky_digit)
+class OrdinaryHuman(Human)
+    |  OrdinaryHuman(name, eyes_color, lucky_digit)
     |  
     |  Method resolution order:
-    |      Ordinary_human
+    |      OrdinaryHuman
     |      Human
     |      builtins.object
     |  
@@ -433,7 +435,7 @@ class Ordinary_human(Human)
                 </pre>
             </div>
             <p>
-By leveraging inheritance, we can access parent class' parameters and methods. ( we have access to Humans' do_1000_pushups method, __init__ and strength_to_weight_ratio class attribute )
+By leveraging inheritance, we can access parent class' parameters and methods. (we have access to Humans' do_1000_pushups method, __init__ and strength_to_weight_ratio class attribute)
             </p>
             <p>
 The other benefit of inheritance is an ability to create more fine-grained objects. Look at Hunter class, hunters are Humans but they are, on average, stronger and care about size of their spears.
@@ -443,7 +445,7 @@ Apart from new attribute, we created a method that makes sense only for hunters.
             <div class="code-snippet">
                 <pre>
                     <code>
-joe = Ordinary_human('Joe', 'brown', 5)
+joe = OrdinaryHuman('Joe', 'brown', 5)
 john = Hunter('John', 'green', 5, 150)
 will = Hunter('Will', 'green', 5, 120)
 alien = Alien()
@@ -472,17 +474,19 @@ print(john.strenght_to_weight_ratio)
                 </pre>
             </div>
             <p>
-In our little ecosystem humans, but not aliens have names, all humans can do pushups to get stronger but only hunters can compare spears
+In our little ecosystem humans, but not aliens, have names, all humans can do pushups to get stronger but only hunters can compare spears
             </p>
             <p>
-Take a minute to read about isinstance (it supports inheritance) type (it doesn't support inheritance) hasattr, issubclass methods in compare_spears. Also, look at do_1000_pushups method and see that humans and hunters get different default strength and the method respects that.
-A common usecase for subclasses is creating custom exceptions. In real-world projects we can see empty class of <MyCustomException>(Exception) because we want to be specific about the name of exception but not necessarily implement any custom logic with regards to it. We took this approach within compare_spears.
+Take a minute to read about isinstance (it supports inheritance) type (it doesn't support inheritance) hasattr, issubclass methods found in compare_spears. Also, look at do_1000_pushups method and see that humans and hunters get different default strength and the method respects that.
+            </p>
+            <p>
+A common usecase for subclasses is creating custom exceptions. In many real-world projects we can see empty class of < MyCustomException >(Exception) because we want to be specific about the name of exception but not necessarily implement any custom logic with regards to it. We took this approach within compare_spears.
             </p>
         </section>
         <section id="special-methods">
             <h2>Special, dunder methods</h2>
             <p>
-We already touched on and used special methods (__init__) but without due explanation. Special methods allow us to emulate some built-in behaviors and we implement operator overloading with them. You recognize special method by the double undersores, or dunder)              
+We already touched on and used special methods (__init__) but without due explanation. Special methods allow us to emulate some built-in behaviors and we implement operator overloading with them. You recognize special method by the double undersores (also called dunder).              
             </p>
             <div class="code-snippet">
                 <pre>
@@ -496,7 +500,7 @@ print('1'+'1') # -> '11'
                 </pre>
             </div>
             <p>
-Probably the most common special methods are __str__ and __repr__. Those methods are implicitly called when we call repr() and str() on our objects. So, when we print(object), the result will depend on how we implemented  __str__ method. If __str__ is not implemented,  for __repr__ is a fallback. What are differences between the two? __repr__ should be unambigous, over readable - for developers' use. A good idea is to make __repr__ return a string that can be copied and pasted to the terminal to re-create the object. 
+Probably the most common special methods are __str__ and __repr__. Those methods are implicitly called when we call repr() and str() on our objects. So, when we print(object), the result will depend on how we implemented  __str__ method. If __str__ is not implemented, __repr__ acts as a fallback so it's good to have at least that. What are differences between the two? __repr__ should prove unambigous, over readable - it's for developers' use. A good idea is to make __repr__ return a string that can be copied and pasted to the terminal to re-create the object. 
 On the other hand,  __str__ should be more readable, as it's meant to be seen by class user.
             </p>
             <div class="code-snippet">
@@ -543,7 +547,7 @@ print(len(hola))
 
             </div>
             <p>
-Those two snippets above do exactly the same thing. the one on the right shows what happens when we print, repr, or add. The same will hold for all other magic methods. Now, let's make babies                
+Those two snippets above do exactly the same thing. the one on the left shows what happens when we print, repr, or add. The same will hold for all other magic methods. Now, let's make babies                
             </p>
             <div class="code-snippet">
                 <pre>
@@ -597,8 +601,8 @@ print(esmeralda + catrina)
         <section id="property-decorators">
             <h2>Property decorators - getters, setters, deleters</h2>
             <p>
-Some people are special agents. Their identity changes a lot. Let's take a look at a class below. First, let's say we want to be able to get fullname of of Mary agent-name. At first glance it could be feasible to create an attribute inside __init__  (as commented). Sure, it works, but what happens when agent changes their name? Since fullname was created at object creation, it cannot accomodate for surname changes. To make it work correctly, we'd need to update fullname attribute independently from surname on each change of the latter.
-We should instead be using something that grabs the current value of name and surname and construes fullname off it - like a fullname() method. This works but we end up with changed syntax - from instance.fullname to instance.fullname() - that breaks the user code. More aesthetically still, it doesn't fit the convention - displaying full name isn't any action, it would look weird accessing it using parentheses. Those considerations lead us towards the solution which is a property decorator. It allows us to access methods as attributes, see agent_fullname method below.               
+Some Humans are special agents. Their identity changes a lot. Let's take a look at a class below. First, let's say, we want to be able to access agent' full name as a separate attribute. At first glance it could be feasible to create an attribute inside __init__  (commented line of code in example below). Sure, it works, but what happens when agent changes their name? Since fullname was created at object creation, it won't 'see' whether name or surname changed at some point. To make it work correctly, we'd need to update it independently on each change.
+Instead, we should be using something that grabs the current value of name and surname and construes fullname off it - like a fullname() method. This works but we end up with changed syntax - from instance.fullname to instance.fullname() - that breaks the user code. More aesthetically still, it doesn't fit the convention - displaying full name isn't any action, it would look weird accessing it using parentheses. Those considerations lead us towards the solution which is a property decorator. It allows us to access methods as attributes, see agent_fullname method below.               
             </p>
             <div class="code-snippet">
                 <pre>
@@ -624,13 +628,13 @@ class Agent(Human):
                 </pre>
             </div>
             <p>
-Agent goes on a mission. Missions demand their identity changed and also for each mission agent can receive some custom attributes that aren't specified for all agents. It would be nice to be able to just provide a dictionary containing info specific to the mission and hope that all data sent by agent's handler for this assignment will be transformed into agent-specific attributes. Also, when mission is over, we'd like to burn all the data and make agent indistinguishable from a ordinary human. All without tormenting the class user. We can do so by using a setter and deleter decorators. Setters allow us to trigger certain changes upon attribute change.
+Agent goes on a mission. Missions demand their identity changed and also for each mission agent can receive some custom attributes that might not be specified for other agents. It would be nice to be able to just provide a dictionary containing info specific to the mission and hope that all data sent by agent's handler for this assignment will be transformed into agent-specific attributes. Also, when mission is over, we'd like to burn all the data and make agent indistinguishable from an ordinary human. All without tormenting the class user. We can do so by using a setter and deleter decorators. Setters allow us to trigger certain changes upon attribute change, deleters, when we use del keyword
             </p>
             <p>
 In @fullname.setter we can set agent_name and agent_surname attributes by providing agent_fullname.  
             </p>
             <p>
-In @agent_info.setter we receive a dict of mission info. For each key-pair in the dictionary we update (or create if doesn't exist yet) an instance attribute. It also affect fullname.setter.  We also have a deleter that will be triggered when we use del keyword. In our case deleter deletes all attributes so that Agent is indistinguishable from ordinary human.
+In @agent_info.setter we receive a dict of mission info. For each key-pair in the dictionary we update (or create if doesn't exist yet) an instance attribute. It also affects @fullname.setter. Similarly, we have a deleter that will take care of deleting enetered data when the time comes. In our case, deleter deletes all attributes so that Agent is indistinguishable from ordinary human.
             </p>
             <div class="code-snippet">
                 <pre>
@@ -736,10 +740,10 @@ print(mary.__dict__)
             </div>
             <ol>
                 <li>
-Create Mary, she has name and surename attributes inherited from Human class.
+Create Mary, she has name and surname attributes inherited from Human class.
                 </li>
                 <li>
-At this point, she is ordinary human, nobody can use any method or ask for any attribute that would compromise her. to prove that, we ask for agent_name and agent_info that returns AttributeError
+At this point, she is an ordinary human, nobody can use any method or ask for any attribute that would compromise her. to prove that, we ask for agent_name and agent_info that return AttributeError
                 </li>
                 <li>
 Create mission dict with some data and assign agent info to addis_abbaba_mission. This is where agent_fullname.setter is triggered.
@@ -751,20 +755,20 @@ Print agent info, see that all all dict keypairs are now attributes
 Check random attribute to make sure it worked
                 </li>
                 <li>
-Pay atterntion to the following: we have an access to agent_name even though it wasn't passed in the dict. It is because when agent_info.setter was setting each record in dict, when it got to agent_fullname, it found agent_fullname.setter  that divided fullname into two separate attributes(setattr(mary, agent_fullname, 'Ari Faint') is equivalent to mary.agent_fullname = 'Ari Faint' and, as we already seen, this is how agent_fullname setter is triggered that created agent name and surname)
+Pay attention to the following: we have an access to agent_name even though it wasn't passed in the dict. It is because when agent_info.setter was setting each record in dict, when it got to agent_fullname, it found agent_fullname.setter  that divided fullname into two separate attributes.
                 </li>
                 <li>
-Use del keyword triggers @agent_info.deleter. It deletes all attributes associated with agent work
+Use of del keyword triggers @agent_info.deleter. It deletes all attributes associated with agent work
                 </li>
                 <li>
-Lastly, print namespace of mary object after deletion - there's only her real name and surename here. she's no agent!
+Lastly, print namespace of Mary after deletion - there's only her real name and surname here. she's no agent!
                 </li>
             </ol>
         </section>
         <section id="dataclasses">
-            <h2>Dataclasses</h2>
+            <h2>Data classes</h2>
             <p>
-When we know we deal with objects that contain only data, not behavior, it is good to know that we have a tool tailored for such needs at our disposal -  a dataclass. It simplifies representing data in object oriented manner. Here, we just touch on that but it's straigthforward to read the docs as you need to do something with it - once you know it is a thing!                
+When we know we deal with objects that contain lots of data, and not so much of behavior, it is good to know that we have a tool tailored for such needs at our disposal -  a dataclass. It simplifies representing data in object oriented manner. Here, we just touch on that but it's straigthforward to read the docs as you need to do something with it - once you know it is a thing!                
             </p>
             <div class="code-snippet">
                 <pre>
@@ -793,13 +797,15 @@ print(ann==ann_clone)
                 some out-of-the-box features:
             </p>
             <ul>
+                <li>
 We can immediately see that we don't need to write an __init__  
-            </ul>
-            <ul>
-We get nice object description instead of <obj at memory> we'd get for regular class.                 
-            </ul>
-            <ul>
-Comparing 2 objects that contain the same data results in True, it would be false for regular class as those are different objects
+                </li>
+                <li>
+We get nice object description instead of < obj at memory > we'd get for regular class.   
+                </li>
+                <li>
+Comparing 2 objects that contain the same data results in True (as seen on ann == ann_clone example), it would be false for regular class as those are different objects
+                </li>
             </ul>
             <p>
 We have a simplified way of doing some data comparison as below:
@@ -829,7 +835,7 @@ print(ann>fran)
                 </pre>
             </div>
             <p>
-post-init: The generated __init__ code will call a method named __post_init__, if it is defined on the class. It will be called as self.__post_init__(). If no __init__ method is generated, then __post_init__ will not automatically be called. Among other uses, this allows for initializing field values that depend on one or more other fields.
+Note on __post_init__: The generated __init__ code will call a method named __post_init__, if it is defined on the class. It will be called as self.__post_init__(). If no __init__ method is generated, then __post_init__ will not automatically be called. Among other uses, this allows for initializing field values that depend on one or more other fields.
             </p>
         </section>
     </main>

@@ -7,6 +7,7 @@
     --clr-white: 0 0% 100%;
     
     /* font-sizes */
+
     --fs-900: 3rem;
     --fs-800: 2rem;
     --fs-700: 1.7rem;
@@ -14,11 +15,13 @@
     --fs-400: 0.9375rem;
     
     /* font-families */
+
     --ff-sans-normal: 'Lato', sans-serif;
 }
 
 
 /* Box sizing */
+
 *,
 *::before,
 *::after {
@@ -26,6 +29,7 @@
 }
 
 /* Reset margins */
+
 body,
 h1,
 h2,
@@ -40,6 +44,7 @@ picture {
 
 
 /* set up the body */
+
 body {
     font-family: var(--ff-sans-normal);
     font-size: var(--fs-400);
@@ -55,6 +60,7 @@ body {
 }
 
 /* make images easier to work with */
+
 img {
     max-width: 100%;
 }
@@ -65,7 +71,6 @@ img {
     display: flex;
     gap: var(--gap, 1rem);
     justify-content: space-evenly;
-
 }
 
 
@@ -87,7 +92,6 @@ h2 {
 
 p, .code-snippet {
     padding-top: 1rem;
-
 }
 
 .code-snippet {
@@ -118,5 +122,4 @@ p, .code-snippet {
     font-size: var(--fs-600);
     text-decoration: none;
     padding-left: 0;
-
 }
