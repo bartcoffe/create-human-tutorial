@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="index.css">
+
+    
+    <title>Python OOP Tutorial</title>
+</head>
+<body>
+    <main>
+        <h1>Object Oriented Programming in Python</h1>
+        <section class="introduction">
+            <h2>Introduction</h2>
+            <p>
+Class is like a blueprint. We start by defining set of objects' characteristics and behaviors (we call those attributes and methods). Once the blueprint is in place, we can take it and bring to life, or instantiate, whole populations of objects at a glance.
+            </p>
+            <div class="image">
+                <img src="assets/Europe_a_Prophecy.jpg" alt="william blake painting">
+            </div>
+            <div class="code-snippet">
+                <pre>
+                    <code>
+class Human:
+    god_constant = 0.7_777
+    def __init__(self, name, hair_on_head_count, eyes_color, lucky_digit, iq):
+        self.name = name
+        self.hair_on_head_count = hair_on_head_count
+        self.eyes_color = eyes_color
+        self.lucky_digit = lucky_digit
+        self.iq = iq
+        if hair_on_head_count % 103 != 0:
+            self.time_on_earth = (lucky_digit * god_constant)/9 * 150
+        else:	
+            self.time_on_earth = 27
+
+
+adam = Human('Adam', 80_000, 'blue', 7, 66) 
+eve = Human('Eve', 90_000, 'green', 3, 99)
+                    </code>
+                </pre>
+
+            </div>
+            <p>
+Let's look onto the act of creation. First line is a class declaration. It starts a recipe for a Human. Last line brings the Human to life. Everything in between is the stuff that Human is set to be and do.
+Each Human has some characteristics like eyes color, a mysterious lucky number and even more mysterious iq number. Adam defined at the very bottom is an instance of Human class and he has blue eyes, low iq and can't do anything at the moment - but that's about to change
+            </p>
+            <div>
+                <div class="code-snippet">
+                    <pre>
+                        <code>
+print(adam)
+# -> <__main__.Human object at 0x7f68493866d0>
+print(eve)
+# -> <__main__.Human object at 0x7f6849386310>
+                        </code>
+                    </pre>
+                </div>
+                <p>
+Print statements above prove that Adam and Eve are distinct instances of Humans, as they occupy their own space in memory. 
+                </p>
+            </div>
+        </section>
+        <section class="instance-attributes">
+            <h2>Instance attributes</h2>
+            <p>
+Instance attributes are variables that contain data that is unique to each instance. Creation of Adam involved code like this: Human('Adam', 80_000, 'blue', 7, 66). What do these values correspond to? Well, if you look closely, values inside parentheses almost perfectly correspond to arguments in __init__ method defined inside a Human class. __init__ is a special method responsible for the act of creation. On each human creation, it demands us to provide its essential characteristics.
+            </p>
+            <p>
+I said that values inside parentheses almost perfectly correspond to arguments in __init__ method. Why almost? Well, at the first place, there's a self argument. Self denotes to-be-born instance - like a piece of marble about to be sculpted. Each method inside a class receives an instance as a first argument. By convention, we call it self, it is not a requirement to call it that, just a good practice. We'll see more of self once dive deeper.                
+            </p>
+            <p>
+By writing self.name = name inside __init__ , we create name attribute in our instance (left side of the equation) and assign name value that we passed in parentheses to it (right side of the equation). Look at the example below to better visualize this. Those two snippets produce the same result, using __init__ just automates the process of creation (often called initialization or construction)
+            </p>
+
+            <div class="flex">
+            <div class="code-snippet">
+                <pre>
+                    <code>
+class Human():
+    pass
+
+first_human = Human()
+first_human.name = 'adam'
+                    </code>
+                </pre>
+            </div>
+            <div class="code-snippet">
+                <pre>
+                    <code>
+class Human():
+    __init__(self, name):
+        self.name = name
+
+first_human = Human('adam') 
+                    </code>
+                </pre>
+            </div>
+            </div>
+        </section>
+        <section class="class-attributes">
+            <h2>Class attributes</h2>
+            <p>
+                Class attributes are variables that contain data that is shared among all instances of a class. Of course, you could set values that don't change as instance variables, but it's just less versatile. There are several situations when you really want to be using class attributes.
+            </p>
+            <div class="code-snippet">
+                <pre>
+                    <code>
+class Human():
+    humans_brought_to_this_vale_of_tears = 0
+    find_true_love_probability = 0.01
+    def __init__(self, name):
+        self.name = name
+        if name == 'Amor':
+            self.find_true_love_probability = 0.1402
+        Human.humans_brought_to_this_vale_of_tears += 1
+
+jean = Human('Jean')
+amor = Human('Amor')
+print(jean.find_true_love_probability)
+# -> 0.01
+print(amor.find_true_love_probability)
+# -> 0.1402
+jean.__dict__ 
+# -> __dict__ prints namespace of this object, there's no info on love here.
+print(amor.__dict__)
+# -> [... find_true_love_probability=0.1402]
+print(Human.__dict__)
+# -> [... find_true_love_probability=0.01]
+                    </code>
+                </pre>
+            </div>
+            <p>
+                When we want to access class attribute we need to do so either by an instance or by class itself. 
+                In example above, when we try to print jean.find_true_love_probability we get a value back as we'd expect. What is interesting to note here though, its that this value is not actually available directly inside the instance. Why does it work then? Well, when we try to access any attribute of an object, python will look in multiple places. it will start in the instance it was called, when doesn't find what it looks for it will then move on to the class it's defined out of. Next, if it's still not there it will try to go up the chain of parent classes until lucky. It is good to be aware of that to prevent some unexpected results. 
+            </p>
+            <p>
+                If your name is Amor, you get more chances to find love. It's because Amor's instance attribute of find_true_love_probability defined in __init__ will be encountered and returned without the need to look anywhere else. It's good to be able to, in some cases, have an instance attribute overwrite some 'default' class attribute while still primarily rely on this 'fallback' feature.
+                Another use case for a class variable can be counting all humans that ever tasted earth life. Individual humans have no reason to mess with that count, its only for internal purposes of Foundational Bureau of IHΣΟΥΣ (FBI)
+            </p>
+
+
+        </section>
+        <section class="instance-methods">
+            <h2>Knowing self is the beginning of all wisdom. Instance Methods</h2>
+            <div class="code-snippet">
+                <pre>
+                    <code>
+plato_prayer = """
+King Zeus, give unto us what is good, whether we pray or pray not; But what is grievous, even if we pray for it, do thou avert.
+"""
+
+class Human():
+    def __init__(self, name, hair_on_head_count):
+        self.name = name
+        self.hair_on_head_count = hair_on_head_count
+    def pray(self):
+        return 'Matthew 6:9-13' if self.hair_on_head_count % 47 != 0 else f'{plato_prayer}'
+
+derek = Human('Derek', 80_123)
+print(derek.pray()) 
+# -> 'Matthew 6:9-13' 
+helen = Human('Helen', 99_969)
+print(helen.pray()) 
+# -> 'King Zeus [...]' 
+                    </code>
+                </pre>
+            </div>
+            <p>
+Humans pray the best they can. In this case, 'the best' one actually can has whole lot to do with their hairline. But it is not the point. The point is use of self. Since prayer behaviors are differentiated by their respective hairiness, Derek should pray differently than Helen. And sure enough our class accommodates for just that!                 
+            </p>
+            <p>
+                Remember, each method inside a class receives an instance as a first argument. 
+                Upon creation, our humans got some numerical values of hair count. They got passed to respective __init__ methods and they've become their characteristics. When we called derek.pray() what happened was:
+            </p>
+            <ul>
+                <li>
+an instance of the class got passed as a first argument 
+                </li>
+                <li>
+instance was received as self
+                </li>
+                <li>
+derek's attribute of hair_on_head_count was accessed, it turned out to be 80_123. 
+                </li>
+                <li>
+based on that value appropriate prayer was returned.
+                </li>
+            </ul>
+            <p>
+                We can actually make python reveal this whole 'method receives an instance as a first argument' behavior in at least two ways shown below. Let's write a class with a method that doesn't take any arguments. When we try to call it - we sure get na error message stating '<method_name>() takes 0 positional arguments but 1 was given'
+            </p>
+            <div class="code-snippet">
+                <pre>
+                    <code>
+class ErroneousHuman():
+    ...
+    def pray(): # no self passed
+        return 'Matthew 6:9-13'
+
+    james = Human(120)
+    print('James ', james.pray())
+    # -> TypeError: pray() takes 0 positional # arguments but 1 was given
+                    </code>
+                </pre>
+            </div>
+            <div class="code-snippet">
+                <pre>
+                    <code>
+print(adam.zodiac_sign())
+print(Human.zodiac_sign(adam)
+                    </code>
+                </pre>
+            </div>
+            <p>
+Statements above are exactly the same - second line just shows more explicitly what happens internally. Again, this is why we need to always write self as a first argument in methods. Self gets passed automatically.
+            </p>
+
+        </section>
+        <section class="class-methods">
+            <h2>Class methods</h2>
+            <p>
+While regular methods take an instance as a first argument, class methods take a class as its first argument. By convention this first argument should be called cls. Turning regular method into class method is easy as. Just add a @classmethod decorator.
+            </p>
+            <div class="code-snippet">
+                <pre>
+                    <code>
+from random import randint as r
+class WrongProbabilityRange(Exception):
+    ...
+class Human():
+    luck_factor = 0 # fair game
+    def __init__(self, is_faithful):
+        self.is_faithful = is_faithful
+
+    def toss_coin(self, desired_outcome):
+        p = 0.5 # probability
+        if self.is_faithful:
+            if not self.luck_factor:
+                pass
+            elif 0 < self.luck_factor <= 1:
+                p += (1 - p) * self.luck_factor
+            else:
+                raise WrongProbabilityRange
+        else:
+            if Human.luck_factor != 0:
+                print('man of little faith, no luck bonus for you!')
+        other_outcome = 'head' if desired_outcome == 'tail' else 'tail'
+        print(f'hoping for {desired_outcome}; win probability: {p}')             
+        return [desired_outcome if x < p*100 else other_outcome for x in range(100)][r(0,99)]
+
+    @classmethod
+    def set_holiday_luck(cls, new_luck_factor):
+        cls.luck_factor = new_luck_factor
+                    </code>
+                </pre>
+            </div>
+            <p>
+Gambling isn't a good idea. Unless you have God on your side. There are times during each year God decides to sprinkle some luck onto humanity. There's a catch: the bonus luck can only be accessed only by the faithful ones. Let's take a look. 
+            </p>
+            <div class="code-snippet">
+                <pre>
+                    <code>
+holy_mary = Human(is_faithful=True)
+infidel_judas = Human(is_faithful=False)
+print(holy_mary.toss_coin(desired_outcome='head'))
+# -> hoping for head; win probability: 0.5 $result
+print(infidel_judas.toss_coin(desired_outcome='tail'))
+# -> hoping for head; win probability: 0.5 $result
+st_patrick_luck_bonus = 0.8 # bonus needs to be in 0 <= bonus <= 1
+Human.set_holiday_luck(st_patrick_luck_bonus)
+print(holy_mary.toss_coin(desired_outcome='head'))
+# -> hoping for head; win probability: 0.9 $result
+print(infidel_judas.toss_coin(desired_outcome='tail')))
+# -> man of little faith, no luck bonus for you!
+# -> hoping for head; win probability: 0.5 $result
+                    </code>
+                </pre>
+            </div>
+            <p>
+Each human upon creation has class attribute of luck factor equal to 0. It is a fair play, just statistics. When calling regular methods like toss_coin, we have default chance of winning equal to 50%. In lucky times though, set_holiday_luck class method is used to increase the luck allowing you to kill it in that game of toss - if you've been good.
+            </p>
+
+        </section>
+        <section class="class-alternative constructors">
+            <h2>Class methods as alternative constructors</h2>
+            <p>
+Imagine you were tasked creating a bunch of humans to populate the Easter Island but the boss gave you the details describing each human as a string. You could of course type all the arguments in appropriate fields but you want to have a way to create humans by suppling the string directly. 
+            </p>
+            <p>
+Example in section below.
+            </p>
+        </section>
+        <section class="static-methods">
+            <h2>Static methods</h2>
+            <p>
+Regular methods pass instance as a first argument, class methods pass a class, static methods pass nothing. They behave like regular functions. The reason for such a creature is convenience - static method doesn't need to live inside a class to work,  it is common-sensicaly connected to it and it just makes sense to have it around.               
+            </p>
+            <p>
+If you find yourself writing a method and it neither use self nor cls - it probably should be a static. 
+            </p>
+            <div class="code-snippet">
+                <pre>
+                    <code>
+class Human:
+    def __init__(self, name, eyes_color, lucky_digit):
+        self.name = name
+        self.eyes_color = eyes_color
+        self.lucky_digit = lucky_digit
+
+    @classmethod
+    def from_string(cls, human_string):
+        name, eyes_color, lucky_digit = human_string.split('-')
+        return cls(name, eyes_color, lucky_digit)
+
+    @staticmethod
+    def should_wear_long_johns(temperature_outside):
+        return True if temperature_outside < -30 else False
+    
+virgil = Human.from_string('Virgil-green-7')
+virgil.should_wear_long_johns(-59)
+# -> True
+Human.should_wear_long_johns(2)
+# -> False
+
+                    </code>
+                </pre>
+            </div>
+
+        </section>
+        <section class="subclasses">
+            <h2>Subclasses</h2>
+            <p>
+Just like in taxonomical classifications where scientists group living things based on their commonalities, we can create similar structures using classes. It lowers redundancy and creates sensible universe where objects can share some functionalities while leaving room for specialization. 
+            </p>
+            <div class="code-snippet">
+                <pre>
+                    <code>
+class SpearNotFound(Exception):
+    ...  # Ellipsis, you can use it as a placeholder for unwritten code
+
+
+class CannotCommunicateWithNonHuman(Exception):
+    ...
+
+
+class Human():
+
+    strength_to_weight_ratio = 1
+
+
+    def __init__(self, name, eyes_color, lucky_digit):
+        self.name = name
+        self.eyes_color = eyes_color
+        self.lucky_digit = lucky_digit
+
+
+    def do_1000_pushups(self):
+        self.strength_to_weight_ratio *= 1.01
+
+
+class Ordinary_human(Human):
+    pass
+
+
+class Alien():
+    pass
+
+class Hunter(Human):
+
+    strength_to_weight_ratio = 1.5
+
+    def __init__(self, name, eyes_color, lucky_digit, spear_length):
+        super().__init__(name, eyes_color, lucky_digit)
+        self.spear_length = spear_length
+
+    def compare_spears(self, other):
+        if isinstance(other, Human):
+            if hasattr(other, 'spear_length'):
+                winner = 'my' if self.spear_length > other.spear_length else 'theirs'
+                return f"{winner} spear is longer"
+            raise SpearNotFound(f"{other.name}, thee has't nay partisan thee blinking idiot!")
+        raise CannotCommunicateWithNonHuman("only people can talketh to each oth'r")
+
+                    </code>
+                </pre>
+            </div>
+            <p>
+There's a lot going on on above example. First, take a look at Ordinary_human. It is a class that inherits from a Human and has nothing more to offer. When we try create an instance of it, we notice that it demands the same init arguments as a Human. Similarly to the example on class attributes, here, on creation of Ordinary_human, python looked for init, it didn't find it so went up to the parent, found it there and run it. It is called method resolution order. To better visualize it, run built-in help function on any class
+            </p>
+            <div class="code-snippet">
+                <pre>
+                    <code>
+print(help(Hunter))
+# ->
+class Ordinary_human(Human)
+    |  Ordinary_human(name, eyes_color, lucky_digit)
+    |  
+    |  Method resolution order:
+    |      Ordinary_human
+    |      Human
+    |      builtins.object
+    |  
+    |  Methods inherited from Human:
+    |  
+    |  __init__(self, name, eyes_color, lucky_digit)
+    |      Initialize self.  See help(type(self)) for accurate signature.
+    |  
+    |  do_1000_pushups(self)
+    |  
+    | ----------------------------------------------------------------------
+    |  Data and other attributes inherited from Human:
+    |  
+    |  strength_to_weight_ratio = 1
+
+                    </code>
+                </pre>
+            </div>
+            <p>
+By leveraging inheritance, we can access parent class' parameters and methods. ( we have access to Humans' do_1000_pushups method, __init__ and strength_to_weight_ratio class attribute )
+            </p>
+            <p>
+The other benefit of inheritance is an ability to create more fine-grained objects. Look at Hunter class, hunters are Humans but they are, on average, stronger and care about size of their spears.
+To differentiate them in such way while keeping the human defaults, we can use super() method that allows us to access methods of the base class. In our case, we want to access __init__ of Human, use Human's characteristics and then add an extra one on top of that (spear_length attribute). It's way shorter and more readable than re-assigning all attributes. 
+Apart from new attribute, we created a method that makes sense only for hunters. Let's play with it a bit.
+            </p>
+            <div class="code-snippet">
+                <pre>
+                    <code>
+joe = Ordinary_human('Joe', 'brown', 5)
+john = Hunter('John', 'green', 5, 150)
+will = Hunter('Will', 'green', 5, 120)
+alien = Alien()
+# -----------------------------------------
+print(john.compare_spears(will))
+# -> my spear is longer
+print(will.compare_spears(john))
+# -> theirs spear is longer
+print(will.compare_spears(joe))
+# -> __main__.SpearNotFound: Joe, thee has't nay partisan thee blinking idiot!
+print(will.compare_spears(alien))
+# ->__main__.CannotCommunicateWithNonHuman:only people can talketh to each oth'r
+# -----------------------------------------
+print(joe.strenght_to_weight_ratio)
+# -> 1
+joe.do_1000_pushups()
+print(joe.strenght_to_weight_ratio)
+# -> 1.01
+print(john.strenght_to_weight_ratio)
+# -> 1.5
+john.do_1000_pushups()
+print(john.strenght_to_weight_ratio)
+# -> 1.5150000000000001
+
+                    </code>
+                </pre>
+            </div>
+            <p>
+In our little ecosystem humans, but not aliens have names, all humans can do pushups to get stronger but only hunters can compare spears
+            </p>
+            <p>
+Take a minute to read about isinstance (it supports inheritance) type (it doesn't support inheritance) hasattr, issubclass methods in compare_spears. Also, look at do_1000_pushups method and see that humans and hunters get different default strength and the method respects that.
+A common usecase for subclasses is creating custom exceptions. In real-world projects we can see empty class of <MyCustomException>(Exception) because we want to be specific about the name of exception but not necessarily implement any custom logic with regards to it. We took this approach within compare_spears.
+            </p>
+        </section>
+        <section class="special-methods">
+            <h2>Special, dunder methods</h2>
+            <p>
+We already touched on and used special methods (__init__) but without due explanation. Special methods allow us to emulate some built-in behaviors and we implement operator overloading with them. You recognize special method by the double undersores, or dunder)              
+            </p>
+            <div class="code-snippet">
+                <pre>
+                    <code>
+# operator overloading
+print(1+1) # -> 2
+print('1'+'1') # -> '11'
+# same operator, depending on the object it is used on, performs different actions.
+
+                    </code>
+                </pre>
+            </div>
+            <p>
+Probably the most common special methods are __str__ and __repr__. Those methods are implicitly called when we call repr() and str() on our objects. So, when we print(object), the result will depend on how we implemented  __str__ method. If __str__ is not implemented,  for __repr__ is a fallback. What are differences between the two? __repr__ should be unambigous, over readable - for developers' use. A good idea is to make __repr__ return a string that can be copied and pasted to the terminal to re-create the object. 
+On the other hand,  __str__ should be more readable, as it's meant to be seen by class user.
+            </p>
+            <div class="code-snippet">
+                <pre>
+                    <code>
+class Human():
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return f"Human('{self.name}')"
+
+    def __str__(self):
+        return self.name
+
+joe = Human('Joe')
+
+                    </code>
+                </pre>
+            </div>
+            <div class="flex">
+                <div class="code-snippet">
+                    <pre>
+                        <code>
+print(joe.__repr__())
+print(joe.__str__())
+print(int.__add__(1, 2))
+print('hola'.__len__()
+    
+                        </code>
+                    </pre>
+                </div>
+                <div class="code-snippet">
+                    <pre>
+                        <code>
+print(repr(joe)) # -> Human('Joe')
+print(joe) # -> 'Joe
+print(1 + 2) # -> 3
+print(len(hola))
+    
+                        </code>
+                    </pre>
+                </div>
+
+            </div>
+            <p>
+Those two snippets above do exactly the same thing. the one on the right shows what happens when we print, repr, or add. The same will hold for all other magic methods. Now, let's make babies                
+            </p>
+            <div class="code-snippet">
+                <pre>
+                    <code>
+class SameSex(Exception):
+    ...
+class Human():
+    def __init__(self, name, eyes_color, sex):
+        self.name = name
+        self.eyes_color = eyes_color
+        self.sex = sex 
+
+    def __repr__(self):
+        return f"Human('{self.name}')"
+
+    def __str__(self):
+        return f"I'm {self.name}, I am a {
+            self.sex} and I have {self.eyes_color} eyes"
+
+    def __add__(self, other):
+        if self.sex == other.sex:
+            raise SameSex("""
+            'producing babies out of same sex partners is currently unavailable,
+            for the time being - consider adoption'
+            """
+            )
+        baby_sex = random.choice(['male', 'female'])
+        baby_name = f'{
+        self.name} Jr.' if baby_sex == self.sex else f'{other.name} Jr.'
+        baby_eyes = random.choice([self.eyes_colWor, other.eyes_color])
+
+        return Human(baby_name, baby_eyes, baby_sex)
+
+wilhelm = Human('Wilhelm', 'green', 'male')
+esmeralda = Human('Esmeralda', 'brown', 'female')
+catrina = Human('Catrina', 'blue', 'female')
+
+print(wilhelm + catrina)
+# -> I'm Catrina Jr., I am a female and I have green eyes
+print(wilhelm + esmeralda)
+# -> I'm Wilhelm Jr., I am a male and I have blue eyes
+print(esmeralda + catrina)
+# -> __main__.SameSex: 
+            'producing babies out of same sex partners is currently unavailable,
+            for the time being - consider adoption'
+
+                    </code>
+                </pre>
+            </div>
+        </section>
+        <section class="property-decorators">
+            <h2>Property decorators - getters, setters, deleters</h2>
+            <p>
+Some people are special agents. Their identity changes a lot. Let's take a look at a class below. First, let's say we want to be able to get fullname of of Mary agent-name. At first glance it could be feasible to create an attribute inside __init__  (as commented). Sure, it works, but what happens when agent changes their name? Since fullname was created at object creation, it cannot accomodate for surname changes. To make it work correctly, we'd need to update fullname attribute independently from surname on each change of the latter.
+We should instead be using something that grabs the current value of name and surname and construes fullname off it - like a fullname() method. This works but we end up with changed syntax - from instance.fullname to instance.fullname() - that breaks the user code. More aesthetically still, it doesn't fit the convention - displaying full name isn't any action, it would look weird accessing it using parentheses. Those considerations lead us towards the solution which is a property decorator. It allows us to access methods as attributes, see agent_fullname method below.               
+            </p>
+            <div class="code-snippet">
+                <pre>
+                    <code>
+class Human():
+    def __init__(self, name, surname):
+        self.name = name
+        self.surname = surname
+
+class Agent(Human):
+    def __init__(self, name, surname,  agent_name, agent_surname):
+        super().__init__(name, surname)
+        self.agent_name = agent_name
+        self.agent_surname = agent_surname
+        # self.agent_fullname = self.agent_name + self.agent_surname # WRONG
+
+    @property
+    def agent_fullname(self):
+        return self.agent_name +  ' ' + self.agent_surname if hasattr(
+            self, 'agent_name') else 'agent who?
+
+                    </code>
+                </pre>
+            </div>
+            <p>
+Agent goes on a mission. Missions demand their identity changed and also for each mission agent can receive some custom attributes that aren't specified for all agents. It would be nice to be able to just provide a dictionary containing info specific to the mission and hope that all data sent by agent's handler for this assignment will be transformed into agent-specific attributes. Also, when mission is over, we'd like to burn all the data and make agent indistinguishable from a ordinary human. All without tormenting the class user. We can do so by using a setter and deleter decorators. Setters allow us to trigger certain changes upon attribute change.
+            </p>
+            <p>
+In @fullname.setter we can set agent_name and agent_surname attributes by providing agent_fullname.  
+            </p>
+            <p>
+In @agent_info.setter we receive a dict of mission info. For each key-pair in the dictionary we update (or create if doesn't exist yet) an instance attribute. It also affect fullname.setter.  We also have a deleter that will be triggered when we use del keyword. In our case deleter deletes all attributes so that Agent is indistinguishable from ordinary human.
+            </p>
+            <div class="code-snippet">
+                <pre>
+                    <code>
+class Agent(Human):
+    def __init__(self, name, surname):
+        super().__init__(name, surname)
+
+
+    @property
+    def agent_fullname(self):
+        if hasattr(self, 'agent_name'):
+            if self.agent_name:
+                return self.agent_name +  ' ' + self.agent_surname
+            else:
+                return 'raise AttributeError # reason None'
+        else:
+            return 'raise AttributeError # No attr '
+
+
+    @agent_fullname.setter
+    def agent_fullname(self, new_name):
+        self.agent_name, self.agent_surname = new_name.split(' ')
+
+
+    @agent_fullname.deleter
+    def agent_fullname(self):
+        delattr(self, 'agent_name')
+        delattr(self, 'agent_surname')
+
+    @property
+    def agent_info(self):
+        if hasattr(self, 'agent_attrs'):
+            if self.agent_attrs:
+                return {attr: getattr(self, attr) for attr in[*self.agent_attrs]} 
+            else:
+                return 'raise AttributeError # reason: empty list'
+        else: return 'raise AttributeError # reason: no attr'
+    
+    @agent_info.setter
+    def agent_info(self, info_dict):
+        for key, val in info_dict.items():
+            if key not in self.__dict__:
+                if not hasattr(self, 'agent_attrs'):
+                    setattr(self, 'agent_attrs', [])
+                self.agent_attrs = [*self.agent_attrs, key]
+            setattr(self, key, val)
+    
+    @agent_info.deleter
+    def agent_info(self):
+        if hasattr(self, 'agent_attrs'):
+            for key in self.agent_attrs:
+                delattr(self, key)
+            delattr(self, 'agent_attrs')
+
+                    </code>
+                </pre>
+            </div>
+            <p>
+Let's see how it works in practice and analyze the outputs:
+            </p>
+            <div class="code-snippet">
+                <pre>
+                    <code>
+# 1. 
+mary = Agent('Mary', 'Jane')
+# 2.
+print(mary.agent_info)
+print(mary.agent_name)
+print(mary.agent_fullname)
+# -> raise AttributeError # reason: no attr
+# 3. 
+addis_abbaba_mission = {
+    'agent_fullname': 'Ari Faint',
+    'agent_age': 19,
+    'agent_secret': '42',
+    'agent_emolument': 1000000,
+    'agent_current_location': 'Addis Ababa'
+}
+mary.agent_info = addis_abbaba_mission
+# 4.
+print(mary.agent_info)
+# -> {'agent_fullname': 'Ari Faint', 'agent_age': 19, 'agent_secret': '42',
+# -> 'agent_emolument': 1000000, 'agent_current_location': 'Addis Ababa'}
+# 5.
+print(mary.agent_emolument)
+# -> 1000000
+# 6.
+print(mary.agent_name)
+# -> Ari
+# 7.
+del mary.agent_info
+print(mary.agent_fullname)
+# -> raise AttributeError # No attr
+print(mary.agent_info)
+# -> raise AttributeError # reason: no attr
+# 8. 
+print(mary.__dict__)
+# -> {'name': 'Mary', 'surname': 'Jane'}
+
+                    </code>
+                </pre>
+            </div>
+            <ol>
+                <li>
+Create Mary, she has name and surename attributes inherited from Human class.
+                </li>
+                <li>
+At this point, she is ordinary human, nobody can use any method or ask for any attribute that would compromise her. to prove that, we ask for agent_name and agent_info that returns AttributeError
+                </li>
+                <li>
+Create mission dict with some data and assign agent info to addis_abbaba_mission. This is where agent_fullname.setter is triggered.
+                </li>
+                <li>
+Print agent info, see that all all dict keypairs are now attributes
+                </li>
+                <li>
+Check random attribute to make sure it worked
+                </li>
+                <li>
+Pay atterntion to the following: we have an access to agent_name even though it wasn't passed in the dict. It is because when agent_info.setter was setting each record in dict, when it got to agent_fullname, it found agent_fullname.setter  that divided fullname into two separate attributes(setattr(mary, agent_fullname, 'Ari Faint') is equivalent to mary.agent_fullname = 'Ari Faint' and, as we already seen, this is how agent_fullname setter is triggered that created agent name and surname)
+                </li>
+                <li>
+Use del keyword triggers @agent_info.deleter. It deletes all attributes associated with agent work
+                </li>
+                <li>
+Lastly, print namespace of mary object after deletion - there's only her real name and surename here. she's no agent!
+                </li>
+            </ol>
+        </section>
+        <section class="dataclasses">
+            <h2>Dataclasses</h2>
+            <p>
+When we know we deal with objects that contain only data, not behavior, it is good to know that we have a tool tailored for such needs at our disposal -  a dataclass. It simplifies representing data in object oriented manner. Here, we just touch on that but it's straigthforward to read the docs as you need to do something with it - once you know it is a thing!                
+            </p>
+            <div class="code-snippet">
+                <pre>
+                    <code>
+from dataclasses import dataclass
+
+@dataclass
+class Human:
+    age: int
+    hair_on_head_no: int
+    weight: int
+
+
+ann = Human('Ann',80_000, 50)
+ann_clone = Human('Ann',80_000, 50)
+
+print(ann)
+# -> Human(age='Ann', hair_on_head_no=80000, weigth=50)
+print(ann==ann_clone)
+# -> True
+
+                    </code>
+                </pre>
+            </div>
+            <p>
+                some out-of-the-box features:
+            </p>
+            <ul>
+We can immediately see that we don't need to write an __init__  
+            </ul>
+            <ul>
+We get nice object description instead of <obj at memory> we'd get for regular class.                 
+            </ul>
+            <ul>
+Comparing 2 objects that contain the same data results in True, it would be false for regular class as those are different objects
+            </ul>
+            <p>
+We have a simplified way of doing some data comparison as below:
+            </p>
+            <div class="code-snippet">
+                <pre>
+                    <code>
+from dataclasses import dataclass, field
+
+@dataclass(order=True)
+class Human:
+    sort_index: int = field(init=False, repr=False)
+    name: str
+    hair_on_head_no: int
+    age: int
+    weight: int
+    def __post_init__(self):
+        self.sort_index = self.hair_on_head_no
+
+ann = Human('Ann',80_000, 50, 77)
+fran = Human('Fran',90_000, 30, 55)
+
+print(ann>fran)
+# -> True
+
+                    </code>
+                </pre>
+            </div>
+            <p>
+post-init: The generated __init__ code will call a method named __post_init__, if it is defined on the class. It will be called as self.__post_init__(). If no __init__ method is generated, then __post_init__ will not automatically be called. Among other uses, this allows for initializing field values that depend on one or more other fields.
+            </p>
+        </section>
+    </main>
+    
+</body>
+</html>

@@ -1,0 +1,119 @@
+
+:root {
+    /* colors */
+
+    --clr-black: 0 0% 0%;
+    --clr-dark: 0, 0%, 35%; 
+    --clr-white: 0 0% 100%;
+    
+    /* font-sizes */
+    --fs-900: 3rem;
+    --fs-800: 2rem;
+    --fs-700: 1.7rem;
+    --fs-600: 1rem;
+    --fs-400: 0.9375rem;
+    
+    /* font-families */
+    --ff-sans-normal: 'Lato', sans-serif;
+}
+
+
+/* Box sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Reset margins */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+figure,
+picture {
+    margin: 0; 
+}
+
+
+/* set up the body */
+body {
+    font-family: var(--ff-sans-normal);
+    font-size: var(--fs-400);
+    color: hsl( var(--clr-black) );
+    background-color: hsl( var(--clr-white) );
+    line-height: 1.5;
+    min-height: 100vh;
+    margin: 0 auto;
+    max-width: 800px;
+    
+    overflow-x: hidden;
+
+}
+
+/* make images easier to work with */
+img {
+    max-width: 100%;
+}
+
+.sr-only {
+    position: absolute; 
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px; 
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap; /* added line */
+    border: 0;
+  }
+
+/* utility classes */
+
+.flex {
+    display: flex;
+    gap: var(--gap, 1rem);
+    justify-content: space-evenly;
+
+}
+
+
+/* my classes */
+
+h1 {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+h2 {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+
+main {
+    padding: 2rem;
+
+}
+
+p, .code-snippet {
+    padding-top: 1rem;
+
+}
+
+
+.code-snippet {
+    overflow-x: auto;
+    color: hsl(var(--clr-dark));
+}
+
+.image {
+    margin: 2rem auto 2rem auto;
+}
+
+img {
+    box-shadow: rgb(85, 91, 255) 0px 0px 0px 3px, rgb(31, 193, 27) 0px 0px 0px 6px, rgb(255, 217, 19) 0px 0px 0px 9px, rgb(255, 156, 85) 0px 0px 0px 12px, rgb(255, 85, 85) 0px 0px 0px 15px;
+}
