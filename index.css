@@ -44,7 +44,7 @@ body {
     font-family: var(--ff-sans-normal);
     font-size: var(--fs-400);
     color: hsl( var(--clr-black) );
-    background-color: hsl( var(--clr-white) );
+    background-color: hsl( var(--clr-white));
     line-height: 1.5;
     min-height: 100vh;
     margin: 0 auto;
@@ -59,18 +59,6 @@ img {
     max-width: 100%;
 }
 
-.sr-only {
-    position: absolute; 
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px; 
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap; /* added line */
-    border: 0;
-  }
-
 /* utility classes */
 
 .flex {
@@ -81,7 +69,11 @@ img {
 }
 
 
-/* my classes */
+/* my styles */
+
+main {
+    padding: 2rem;
+}
 
 h1 {
     text-align: center;
@@ -93,17 +85,10 @@ h2 {
     margin-bottom: 1.5rem;
 }
 
-
-main {
-    padding: 2rem;
-
-}
-
 p, .code-snippet {
     padding-top: 1rem;
 
 }
-
 
 .code-snippet {
     overflow-x: auto;
@@ -114,6 +99,24 @@ p, .code-snippet {
     margin: 2rem auto 2rem auto;
 }
 
-img {
+#william-blake {
     box-shadow: rgb(85, 91, 255) 0px 0px 0px 3px, rgb(31, 193, 27) 0px 0px 0px 6px, rgb(255, 217, 19) 0px 0px 0px 9px, rgb(255, 156, 85) 0px 0px 0px 12px, rgb(255, 85, 85) 0px 0px 0px 15px;
+}
+
+.table-of-contents {
+    padding-left: 0;
+}
+
+.table-of-contents li {
+    list-style-type: none
+}
+
+.table-of-contents a {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: inherit;
+    font-size: var(--fs-600);
+    text-decoration: none;
+    padding-left: 0;
+
 }

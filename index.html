@@ -8,18 +8,31 @@
     <link rel="stylesheet" href="index.css">
 
     
-    <title>Python OOP Tutorial</title>
+    <title>Create a Human with Orient Oriented Programming</title>
 </head>
 <body>
     <main>
-        <h1>Object Oriented Programming in Python</h1>
-        <section class="introduction">
+        <h1>Create a Human with Orient Oriented Programming</h1>
+        <ol class="table-of-contents">
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#instance-attributes">Instance attributes</a></li>
+            <li><a href="#class-attributes">Class attributes</a></li>
+            <li><a href="#instance-methods">Knowing self is the beginning of all wisdom. Instance Methods</a></li>
+            <li><a href="#class-methods">Class methods</a></li>
+            <li><a href="#class-alternative constructors">Class methods as alternative constructors</a></li>
+            <li><a href="#static-methods">Static methods</a></li>
+            <li><a href="#subclasses">Subclasses</a></li>
+            <li><a href="#special-methods">Special, dunder methods</a></li>
+            <li><a href="#property-decorators">Property decorators - getters, setters, deleters</a></li>
+            <li><a href="#dataclasses">Dataclasses</a></li>
+          </ol>
+        <section id="introduction">
             <h2>Introduction</h2>
             <p>
 Class is like a blueprint. We start by defining set of objects' characteristics and behaviors (we call those attributes and methods). Once the blueprint is in place, we can take it and bring to life, or instantiate, whole populations of objects at a glance.
             </p>
             <div class="image">
-                <img src="assets/Europe_a_Prophecy.jpg" alt="william blake painting">
+                <img id='william-blake' src="assets/Europe_a_Prophecy.jpg" alt="william blake painting">
             </div>
             <div class="code-snippet">
                 <pre>
@@ -64,7 +77,7 @@ Print statements above prove that Adam and Eve are distinct instances of Humans,
                 </p>
             </div>
         </section>
-        <section class="instance-attributes">
+        <section id="instance-attributes">
             <h2>Instance attributes</h2>
             <p>
 Instance attributes are variables that contain data that is unique to each instance. Creation of Adam involved code like this: Human('Adam', 80_000, 'blue', 7, 66). What do these values correspond to? Well, if you look closely, values inside parentheses almost perfectly correspond to arguments in __init__ method defined inside a Human class. __init__ is a special method responsible for the act of creation. On each human creation, it demands us to provide its essential characteristics.
@@ -101,7 +114,7 @@ first_human = Human('adam')
             </div>
             </div>
         </section>
-        <section class="class-attributes">
+        <section id="class-attributes">
             <h2>Class attributes</h2>
             <p>
                 Class attributes are variables that contain data that is shared among all instances of a class. Of course, you could set values that don't change as instance variables, but it's just less versatile. There are several situations when you really want to be using class attributes.
@@ -144,7 +157,7 @@ print(Human.__dict__)
 
 
         </section>
-        <section class="instance-methods">
+        <section id="instance-methods">
             <h2>Knowing self is the beginning of all wisdom. Instance Methods</h2>
             <div class="code-snippet">
                 <pre>
@@ -220,7 +233,7 @@ Statements above are exactly the same - second line just shows more explicitly w
             </p>
 
         </section>
-        <section class="class-methods">
+        <section id="class-methods">
             <h2>Class methods</h2>
             <p>
 While regular methods take an instance as a first argument, class methods take a class as its first argument. By convention this first argument should be called cls. Turning regular method into class method is easy as. Just add a @classmethod decorator.
@@ -285,7 +298,7 @@ Each human upon creation has class attribute of luck factor equal to 0. It is a 
             </p>
 
         </section>
-        <section class="class-alternative constructors">
+        <section id="class-alternative constructors">
             <h2>Class methods as alternative constructors</h2>
             <p>
 Imagine you were tasked creating a bunch of humans to populate the Easter Island but the boss gave you the details describing each human as a string. You could of course type all the arguments in appropriate fields but you want to have a way to create humans by suppling the string directly. 
@@ -294,7 +307,7 @@ Imagine you were tasked creating a bunch of humans to populate the Easter Island
 Example in section below.
             </p>
         </section>
-        <section class="static-methods">
+        <section id="static-methods">
             <h2>Static methods</h2>
             <p>
 Regular methods pass instance as a first argument, class methods pass a class, static methods pass nothing. They behave like regular functions. The reason for such a creature is convenience - static method doesn't need to live inside a class to work,  it is common-sensicaly connected to it and it just makes sense to have it around.               
@@ -331,7 +344,7 @@ Human.should_wear_long_johns(2)
             </div>
 
         </section>
-        <section class="subclasses">
+        <section id="subclasses">
             <h2>Subclasses</h2>
             <p>
 Just like in taxonomical classifications where scientists group living things based on their commonalities, we can create similar structures using classes. It lowers redundancy and creates sensible universe where objects can share some functionalities while leaving room for specialization. 
@@ -466,7 +479,7 @@ Take a minute to read about isinstance (it supports inheritance) type (it doesn'
 A common usecase for subclasses is creating custom exceptions. In real-world projects we can see empty class of <MyCustomException>(Exception) because we want to be specific about the name of exception but not necessarily implement any custom logic with regards to it. We took this approach within compare_spears.
             </p>
         </section>
-        <section class="special-methods">
+        <section id="special-methods">
             <h2>Special, dunder methods</h2>
             <p>
 We already touched on and used special methods (__init__) but without due explanation. Special methods allow us to emulate some built-in behaviors and we implement operator overloading with them. You recognize special method by the double undersores, or dunder)              
@@ -581,7 +594,7 @@ print(esmeralda + catrina)
                 </pre>
             </div>
         </section>
-        <section class="property-decorators">
+        <section id="property-decorators">
             <h2>Property decorators - getters, setters, deleters</h2>
             <p>
 Some people are special agents. Their identity changes a lot. Let's take a look at a class below. First, let's say we want to be able to get fullname of of Mary agent-name. At first glance it could be feasible to create an attribute inside __init__  (as commented). Sure, it works, but what happens when agent changes their name? Since fullname was created at object creation, it cannot accomodate for surname changes. To make it work correctly, we'd need to update fullname attribute independently from surname on each change of the latter.
@@ -748,7 +761,7 @@ Lastly, print namespace of mary object after deletion - there's only her real na
                 </li>
             </ol>
         </section>
-        <section class="dataclasses">
+        <section id="dataclasses">
             <h2>Dataclasses</h2>
             <p>
 When we know we deal with objects that contain only data, not behavior, it is good to know that we have a tool tailored for such needs at our disposal -  a dataclass. It simplifies representing data in object oriented manner. Here, we just touch on that but it's straigthforward to read the docs as you need to do something with it - once you know it is a thing!                
