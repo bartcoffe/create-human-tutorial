@@ -40,7 +40,7 @@ Class is like a blueprint. We start by defining set of objects' characteristics 
             </div>
             <div class="code-snippet">
                 <pre>
-                    <code>
+                    <code class="language-python">
 class Human:
     god_constant = 0.7_777
     def __init__(self, name, hair_on_head_count, eyes_color, lucky_digit, iq):
@@ -68,7 +68,7 @@ Each Human has some characteristics like eyes color, a mysterious lucky number a
             <div>
                 <div class="code-snippet">
                     <pre>
-                        <code>
+                        <code class="language-python">
 print(adam)
 # -> <__main__.Human object at 0x7f68493866d0>
 print(eve)
@@ -107,7 +107,7 @@ first_human.name = 'adam'
             </div>
             <div class="code-snippet">
                 <pre>
-                    <code>
+                    <code class="language-python">
 class Human():
     __init__(self, name):
         self.name = name
@@ -125,7 +125,7 @@ first_human = Human('adam')
             </p>
             <div class="code-snippet">
                 <pre>
-                    <code>
+                    <code class="language-python">
 class Human():
     humans_brought_to_this_vale_of_tears = 0
     find_true_love_probability = 0.01
@@ -165,7 +165,7 @@ print(Human.__dict__)
             <h2>Knowing self is the beginning of all wisdom. Instance Methods</h2>
             <div class="code-snippet">
                 <pre>
-                    <code>
+                    <code class="language-python">
 plato_prayer = """
 King Zeus, give unto us what is good, whether we pray or pray not; But what is grievous, even if we pray for it, do thou avert.
 """
@@ -212,7 +212,7 @@ based on that value appropriate prayer was returned.
             </p>
             <div class="code-snippet">
                 <pre>
-                    <code>
+                    <code class="language-python">
 class ErroneousHuman():
     ...
     def pray(): # no self passed
@@ -227,7 +227,7 @@ class ErroneousHuman():
 
             <div class="code-snippet">
                 <pre>
-                    <code>
+                    <code class="language-python">
 print(adam.zodiac_sign())
 print(Human.zodiac_sign(adam)
                     </code>
@@ -246,7 +246,7 @@ While regular methods take an instance as a first argument, class methods take a
             </p>
             <div class="code-snippet">
                 <pre>
-                    <code>
+                    <code class="language-python">
 from random import randint as r
 class WrongProbabilityRange(Exception):
     ...
@@ -282,7 +282,7 @@ Gambling isn't a good idea. Unless you have God on your side. There are times du
             </p>
             <div class="code-snippet">
                 <pre>
-                    <code>
+                    <code class="language-python">
 holy_mary = Human(is_faithful=True)
 infidel_judas = Human(is_faithful=False)
 print(holy_mary.toss_coin(desired_outcome='head'))
@@ -323,7 +323,7 @@ If you find yourself writing a method and it neither use self nor cls - it proba
             </p>
             <div class="code-snippet">
                 <pre>
-                    <code>
+                    <code class="language-python">
 class Human:
     def __init__(self, name, eyes_color, lucky_digit):
         self.name = name
@@ -357,7 +357,7 @@ Just like in taxonomical classifications where scientists group living things ba
             </p>
             <div class="code-snippet">
                 <pre>
-                    <code>
+                    <code class="language-python">
 class SpearNotFound(Exception):
     ...  # Ellipsis, you can use it as a placeholder for unwritten code
 
@@ -412,7 +412,7 @@ There's a lot going on in an example above. First, take a look at OrdinaryHuman.
             </p>
             <div class="code-snippet">
                 <pre>
-                    <code>
+                    <code class="language-python">
 print(help(Hunter))
 # ->
 class OrdinaryHuman(Human)
@@ -448,7 +448,7 @@ Apart from new attribute, we created a method that makes sense only for hunters.
             </p>
             <div class="code-snippet">
                 <pre>
-                    <code>
+                    <code class="language-python">
 joe = OrdinaryHuman('Joe', 'brown', 5)
 john = Hunter('John', 'green', 5, 150)
 will = Hunter('Will', 'green', 5, 120)
@@ -494,7 +494,7 @@ We already touched on and used special methods (__init__) but without due explan
             </p>
             <div class="code-snippet">
                 <pre>
-                    <code>
+                    <code class="language-python">
 # operator overloading
 print(1+1) # -> 2
 print('1'+'1') # -> '11'
@@ -509,7 +509,7 @@ On the other hand,  __str__ should be more readable, as it's meant to be seen by
             </p>
             <div class="code-snippet">
                 <pre>
-                    <code>
+                    <code class="language-python">
 class Human():
     def __init__(self, name):
         self.name = name
@@ -528,7 +528,7 @@ joe = Human('Joe')
             <div class="flex">
                 <div class="code-snippet">
                     <pre>
-                        <code>
+                        <code class="language-python">
 print(joe.__repr__())
 print(joe.__str__())
 print(int.__add__(1, 2))
@@ -539,7 +539,7 @@ print('hola'.__len__()
                 </div>
                 <div class="code-snippet">
                     <pre>
-                        <code>
+                        <code class="language-python">
 print(repr(joe)) # -> Human('Joe')
 print(joe) # -> 'Joe
 print(1 + 2) # -> 3
@@ -555,7 +555,7 @@ Those two snippets above do exactly the same thing. the one on the left shows wh
             </p>
             <div class="code-snippet">
                 <pre>
-                    <code>
+                    <code class="language-python">
 class SameSex(Exception):
     ...
 class Human():
@@ -610,7 +610,7 @@ Instead, we should be using something that grabs the current value of name and s
             </p>
             <div class="code-snippet">
                 <pre>
-                    <code>
+                    <code class="language-python">
 class Human():
     def __init__(self, name, surname):
         self.name = name
@@ -642,7 +642,7 @@ In @agent_info.setter we receive a dict of mission info. For each key-pair in th
             </p>
             <div class="code-snippet">
                 <pre>
-                    <code>
+                    <code class="language-python">
 class Agent(Human):
     def __init__(self, name, surname):
         super().__init__(name, surname)
@@ -702,7 +702,7 @@ Let's see how it works in practice and analyze the outputs:
             </p>
             <div class="code-snippet">
                 <pre>
-                    <code>
+                    <code class="language-python">
 # 1. 
 mary = Agent('Mary', 'Jane')
 # 2.
@@ -776,7 +776,7 @@ When we know we deal with objects that contain lots of data, and not so much of 
             </p>
             <div class="code-snippet">
                 <pre>
-                    <code>
+                    <code class="language-python">
 from dataclasses import dataclass
 
 @dataclass
@@ -816,7 +816,7 @@ We have a simplified way of doing some data comparison as below:
             </p>
             <div class="code-snippet">
                 <pre>
-                    <code>
+                    <code class="language-python">
 from dataclasses import dataclass, field
 
 @dataclass(order=True)

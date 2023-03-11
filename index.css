@@ -90,14 +90,14 @@ h2 {
     margin-bottom: 1.5rem;
 }
 
-p, .code-snippet {
+p {
     padding-top: 1rem;
 }
 
-.code-snippet {
+/* .code-snippet {
     overflow-x: auto;
     color: hsl(var(--clr-dark));
-}
+} */
 
 .image {
     margin: 2rem auto 2rem auto;
